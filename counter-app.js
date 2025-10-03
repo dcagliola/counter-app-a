@@ -114,6 +114,7 @@ makeItRain() {
           font-family: var(--ddd-font-navigation);
         }
         .wrapper {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -164,7 +165,7 @@ makeItRain() {
           width: 100vw;
           height: 100vh;
           pointer-events: none;
-          z-index: 1000;
+          z-index: 10;
         }
       `,
     ];
@@ -173,25 +174,18 @@ makeItRain() {
   // Copilot showed this way of working the buttons, seemed familiar to our prior in-class event listeners
   render() {
     return html`
+      <div class="wrapper">
         <div class="count">${this.count}</div>
-        <button
-          @click="${this.decrement}"
-          ?disabled="${this.count <= this.min}"
-        >-
-        </button>
-        <button
-          @click="${this.reset}"
-          ?disabled="${this.count === this.defaultCount}"
-        >Reset
-        </button> 
-        <button
-          @click="${this.increment}"
-          ?disabled="${this.count >= this.max}"
-        >+
-        </button>
-        <confetti-container id="confetti"></confetti-container>
+        <div class="controls">
+        <button @click="${this.decrement}" ?disabled="${this.count <= this.min}">-</button>
+        <button @click="${this.reset}" ?disabled="${this.count === this.defaultCount}">Reset</button> 
+        <button @click="${this.increment}" ?disabled="${this.count >= this.max}">+</button>
+        </div>
+        <slot></slot>
+      </div>
+      <confetti-container id="confetti"></confetti-container>
     `;
-  }
+  }  
 
   increment() {
     if (this.count < this.max) {
