@@ -156,6 +156,16 @@ makeItRain() {
           opacity: 0.5;
           cursor: not-allowed;
         }
+
+        confetti-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          pointer-events: none;
+          z-index: 1000;
+        }
       `,
     ];
   }
@@ -163,7 +173,6 @@ makeItRain() {
   // Copilot showed this way of working the buttons, seemed familiar to our prior in-class event listeners
   render() {
     return html`
-      <div class="wrapper">
         <div class="count">${this.count}</div>
         <button
           @click="${this.decrement}"
@@ -180,9 +189,7 @@ makeItRain() {
           ?disabled="${this.count >= this.max}"
         >+
         </button>
-        <slot></slot>
         <confetti-container id="confetti"></confetti-container>
-      </div>
     `;
   }
 
